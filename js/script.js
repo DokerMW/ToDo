@@ -2,8 +2,9 @@ const toDoControl = document.querySelector('.todo-control');
 const headerInput = document.querySelector('.header-input');
 const toDoList = document.querySelector('.todo-list');
 const toDoCompleted = document.querySelector('.todo-completed');
+const getStorage = localStorage.getItem('data');
 
-const toDoData = [];
+let toDoData = JSON.parse(getStorage) || [];
 
 const render = () => {
 	toDoList.innerHTML = '';
@@ -29,10 +30,17 @@ const render = () => {
 
 		 li.querySelector('.todo-complete').addEventListener('click', () => {
 			e.completed = !e.completed;
+			setStorage();
 			render();
 		 });
 	});
 }
+
+const setStorage = () => {
+	let stringifyData = JSON.stringify(toDoData);
+	localStorage.setItem('data', stringifyData)
+}
+
 
 toDoControl.addEventListener('submit', e => {
 	e.preventDefault();
@@ -48,5 +56,20 @@ toDoControl.addEventListener('submit', e => {
 	
 	headerInput.value = '';
 
+	setStorage();
 	render();
 });
+
+document.addEventListener('click', e => {
+	if(e.target.classList.contains('todo-remove')){
+		let parentLi = e.target.closest('.todo-item');
+		let toDoValue = parentLi.querySelector('.text-todo').textContent;
+		toDoData = toDoData.filter(item => item.text != toDoValue);
+		setStorage();
+		render();
+	}
+});
+
+
+render();
+
