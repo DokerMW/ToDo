@@ -42,7 +42,10 @@ toDoControl.addEventListener('submit', e => {
 		completed: false
 	}
 
-	toDoData.push(newToDo);
+	if(headerInput.value){
+		toDoData.push(newToDo);
+	}
+	
 	headerInput.value = '';
 
 	render();
