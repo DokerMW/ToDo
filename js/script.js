@@ -32,3 +32,17 @@ const render = () => {
 		 });
 	});
 }
+
+toDoControl.addEventListener('submit', e => {
+	e.preventDefault();
+
+	const newToDo = {
+		text: headerInput.value,
+		completed: false
+	}
+
+	toDoData.push(newToDo);
+	headerInput.value = '';
+
+	render();
+});
