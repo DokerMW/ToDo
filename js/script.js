@@ -29,6 +29,7 @@ const render = () => {
 
 		 li.querySelector('.todo-complete').addEventListener('click', () => {
 			e.completed = !e.completed;
+			render();
 		 });
 	});
 }
